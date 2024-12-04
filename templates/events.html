@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Events{% endblock %}
+{% block content %}
+<!-- Profile_editing Section -->
+<section id="Events" class="Events section">
+
+  <!-- Section Title -->
+  <div class="container section-title" data-aos="fade-up">
+    <h2>Events</h2>
+    <div><span> Events we </span> <span class="description-title">Offer</span></div>
+  </div>
+  
+</section>
+<!-- End Section Title -->
+ <!-- Events Section -->
+ <section id="events" class="events section">
+
+    <img class="slider-bg" src="{% static 'assets/img/events-bg.jpg'%}" alt="" data-aos="fade-in">
+
+    <div class="container">
+
+      <div class="swiper init-swiper" data-aos="fade-up" data-aos-delay="100">
+        <script type="application/json" class="swiper-config">
+          {
+            "loop": true,
+            "speed": 600,
+            "autoplay": {
+              "delay": 5000
+            },
+            "slidesPerView": "auto",
+            "pagination": {
+              "el": ".swiper-pagination",
+              "type": "bullets",
+              "clickable": true
+            }
+          }
+        </script>
+        <div class="swiper-wrapper">
+
+          <div class="swiper-slide">
+            <div class="row gy-4 event-item">
+              <div class="col-lg-6">
+                <img src="{% static 'assets/img/events-slider/events-slider-1.jpg'%}" class="img-fluid" alt="">
+              </div>
+              <div class="col-lg-6 pt-4 pt-lg-0 content">
+                <h3>Birthday Parties</h3>
+                <div class="price">
+                  <p><span>Ksh 50,000</span></p>
+                </div>
+                <p class="fst-italic">
+                  Celebrate your special day with our tailored birthday packages. Enjoy personalized decor, a special menu,
+                  and dedicated staff to ensure your party is a hit.
+                </p>
+                <ul>
+                  <li><i class="bi bi-check2-circle"></i> <span>Customized birthday cakes</span></li>
+                  <li><i class="bi bi-check2-circle"></i> <span>Decorated event space</span></li>
+                  <li><i class="bi bi-check2-circle"></i> <span>Fun activities and entertainment</span></li>
+                  <li><i class="bi bi-check2-circle"></i> <span>Special birthday menus</span></li>
+                </ul>
+                <p>
+                  Make unforgettable memories with friends and family in a joyous, festive environment crafted just for you.
+                </p>
+              </div>
+            </div>
+          </div>
+          <!-- End Slider item -->
+
+          <div class="swiper-slide">
+            <div class="row gy-4 event-item">
+              <div class="col-lg-6">
+                <img src="{% static 'assets/img/events-slider/events-slider-2.jpg'%}" class="img-fluid" alt="">
+              </div>
+              <div class="col-lg-6 pt-4 pt-lg-0 content">
+                <h3>Private Dinners</h3>
+                <div class="price">
+                  <p><span>Ksh 7,000</span></p>
+                </div>
+                <p class="fst-italic">
+                  For an intimate dining experience, book one of our private rooms.
+                  Whether it’s a family gathering or a special celebration, we provide a cozy atmosphere and personalized service.
+                </p>
+                <ul>
+                  <li><i class="bi bi-check2-circle"></i> <span>Customizable menus</span></li>
+                  <li><i class="bi bi-check2-circle"></i> <span>Dedicated service staff</span></li>
+                  <li><i class="bi bi-check2-circle"></i> <span>Personalized decor and setup</span></li>
+                </ul>
+                <p>
+                  Enjoy a luxurious private dinner with close friends or family in an exclusive setting.
+                </p>
+              </div>
+            </div>
+          </div>
+          <!-- End Slider item -->
+
+          <div class="swiper-slide">
+            <div class="row gy-4 event-item">
+              <div class="col-lg-6">
+                <img src="{% static 'assets/img/events-slider/events-slider-3.jpg'%}" class="img-fluid" alt="">
+              </div>
+              <div class="col-lg-6 pt-4 pt-lg-0 content">
+                <h3>Custom Parties</h3>
+                <div class="price">
+                  <p><span>Ksh 20,000</span></p>
+                </div>
+                <p class="fst-italic">
+                  Design your perfect event with our custom party packages. Whether it’s a themed celebration or a unique gathering,
+                   we tailor every detail to your vision.
+                </p>
+                <ul>
+                  <li><i class="bi bi-check2-circle"></i> <span>Personalized themes and decor</span></li>
+                  <li><i class="bi bi-check2-circle"></i> <span>Entertainment options</span></li>
+                  <li><i class="bi bi-check2-circle"></i> <span>Customizable menus</span></li>
+                  <li><i class="bi bi-check2-circle"></i> <span>Dedicated event planners</span></li>
+                </ul>
+                <p>
+                  Create a one-of-a-kind experience that reflects your style and preferences, making your event truly unforgettable.
+                </p>
+              </div>
+            </div>
+          </div>
+          <!-- End Slider item -->
+
+          <div class="swiper-slide">
+            <div class="row gy-4 event-item">
+              <div class="col-lg-6">
+                <img src="{% static 'assets/img/events-slider/events-slider-4.jpg'%}" class="img-fluid" alt="">
+              </div>
+              <div class="col-lg-6 pt-4 pt-lg-0 content">
+                <h3>Holiday Parties</h3>
+                <div class="price">
+                  <p><span>Ksh 40,000 </span>small events</p>
+                  <p><span>Ksh 80,000 </span>medium-sized</p>
+                  <p><span>Ksh 160,000 </span>Large events</p>
+                </div>
+                <p class="fst-italic">
+                  Celebrate the festive season with a holiday party at DineReserve. We offer themed decorations, special holiday menus, 
+                  and a joyful atmosphere to make your celebration bright.
+                </p>
+                <ul>
+                  <li><i class="bi bi-check2-circle"></i> <span>Festive decorations</span></li>
+                  <li><i class="bi bi-check2-circle"></i> <span>Special holiday menus</span></li>
+                  <li><i class="bi bi-check2-circle"></i> <span>Themed entertainment</span></li>
+                  <li><i class="bi bi-check2-circle"></i> <span>Family friendly activities </span></li>
+                </ul>
+                <p>
+                  Create a one-of-a-kind experience that reflects your style and preferences, making your event truly unforgettable.
+                </p>
+              </div>
+            </div>
+          </div>
+          <!-- End Slider item -->
+
+        </div>
+        <div class="swiper-pagination"></div>
+      </div>
+
+    </div>
+
+ </section>
+ <!-- /Events Section -->
+{% endblock %}

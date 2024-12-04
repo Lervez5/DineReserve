@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Payments{% endblock %}
+{% block content %}
+<section id="Make payment" class="Make payment section">
+
+  <!-- Section Title -->
+  <div class="container section-title" data-aos="fade-up">
+    <h2>Make payment</h2>
+    <div><span>Make </span> <span class="description-title">Payments.</span></div>
+  </div>
+  <!-- End Section Title -->
+
+
+<h2>Make a Payment</h2>
+
+<form method="post" action="{% url 'del_app:stk' %}">
+  {% csrf_token %}
+    <label class="form-label" for="phone">Phone Number :</label>
+    <input type="text" id="phone" name="phone" value="254" placeholder="254" oninput="enforcePrefix()">
+    <br><br>
+
+    <label class="form-label" for="amount">Amount :</label>
+    <input type="text" id="amount" name="amount" placeholder="Amount">
+
+    <br><br>
+  <button type="submit" class="btn btn-dark btn-lg">Submit</button>
+</form>
+{% endblock %}

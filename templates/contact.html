@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block title %}Contact{% endblock %}
+{% block content %}
+<!-- Contact Section -->
+<section id="contact" class="contact section">
+
+    <!-- Section Title -->
+    <div class="container section-title" data-aos="fade-up">
+      <h2>Contact</h2>
+      <div><span>Check Our</span> <span class="description-title">Contact</span></div>
+    </div>
+    <!-- End Section Title -->
+
+    <div class="container" data-aos="fade">
+
+      <div class="row gy-5 gx-lg-5">
+
+        <div class="col-lg-4">
+
+          <div class="info">
+            <h3>Get in touch</h3>
+            <p>We’d love to hear from you! Reach out to us with any questions or feedback.</p>
+
+            <div class="info-item d-flex">
+              <i class="bi bi-geo-alt flex-shrink-0"></i>
+              <div>
+                <h4>Location:</h4>
+                <p>Street 108, Nairobi City, NC 00100</p>
+              </div>
+            </div><!-- End Info Item -->
+
+            <div class="info-item d-flex">
+              <i class="bi bi-envelope flex-shrink-0"></i>
+              <div>
+                <h4>Email:</h4>
+                <p>info@DineReserve.com</p>
+              </div>
+            </div>
+            <!-- End Info Item -->
+
+            <div class="info-item d-flex">
+              <i class="bi bi-phone flex-shrink-0"></i>
+              <div>
+                <h4>Call:</h4>
+                <p>+254 745804539</p>
+              </div>
+            </div>
+            <!-- End Info Item -->
+
+          </div>
+
+        </div>
+
+        <div class="col-lg-8">
+          <form method="post" role="form">
+            {% csrf_token %}
+            <div class="row">
+              <div class="col-md-6 form-group">
+                <label for="name">Your Name</label>
+                <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required="">
+              </div>
+              <div class="col-md-6 form-group mt-3 mt-md-0">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" name="email" id="email" placeholder="example@gmail.com" required="">
+              </div>
+            </div>
+            <div class="form-group mt-3">
+              <label for="subject">Subject</label>
+              <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required="">
+            </div>
+            <div class="form-group mt-3">
+              <label for="message">Message</label>
+              <textarea class="form-control" name="message" id="message" placeholder="Message" required=""></textarea>
+            </div>
+            <div class="my-3">
+              <div class="text-center mt-3">Click on the button to send your details</div>
+            </div>
+            <div class="text-center"><button type="submit" class="btn btn-dark btn-lg">Send Message</button></div>
+          </form>
+        </div>
+        <!-- End Contact Form -->
+
+      </div>
+
+    </div>
+
+  </section>
+  <!-- /Contact Section -->
+
+{% endblock %}

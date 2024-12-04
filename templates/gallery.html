@@ -1,0 +1,243 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Gallery{% endblock %}
+{% block content %}
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery section">
+
+        <!-- Section Title -->
+        <div class="container section-title" data-aos="fade-up">
+          <h2>Gallery</h2>
+          <div><span>Some photos from</span> <span class="description-title">Our Restaurant</span></div>
+        </div><!-- End Section Title -->
+  
+        <div class="container-fluid" data-aos="fade-up" data-aos-delay="100">
+  
+          <div class="row g-0">
+  
+            <div class="col-lg-3 col-md-4">
+              <div class="gallery-item">
+                <a href="{% static 'assets/img/gallery/gallery-1.jpg'%}" class="glightbox" data-gallery="images-gallery">
+                  <img src="{% static 'assets/img/gallery/gallery-1.jpg'%}" alt="" class="img-fluid">
+                </a>
+              </div>
+            </div><!-- End Gallery Item -->
+  
+            <div class="col-lg-3 col-md-4">
+              <div class="gallery-item">
+                <a href="{% static 'assets/img/gallery/gallery-2.jpg'%}" class="glightbox" data-gallery="images-gallery">
+                  <img src="{% static 'assets/img/gallery/gallery-2.jpg'%}" alt="" class="img-fluid">
+                </a>
+              </div>
+            </div><!-- End Gallery Item -->
+  
+            <div class="col-lg-3 col-md-4">
+              <div class="gallery-item">
+                <a href="{% static 'assets/img/gallery/gallery-3.jpg'%}" class="glightbox" data-gallery="images-gallery">
+                  <img src="{% static 'assets/img/gallery/gallery-3.jpg'%}" alt="" class="img-fluid">
+                </a>
+              </div>
+            </div><!-- End Gallery Item -->
+  
+            <div class="col-lg-3 col-md-4">
+              <div class="gallery-item">
+                <a href="{% static 'assets/img/gallery/gallery-4.jpg'%}" class="glightbox" data-gallery="images-gallery">
+                  <img src="{% static 'assets/img/gallery/gallery-4.jpg'%}" alt="" class="img-fluid">
+                </a>
+              </div>
+            </div><!-- End Gallery Item -->
+  
+            <div class="col-lg-3 col-md-4">
+              <div class="gallery-item">
+                <a href="{% static 'assets/img/gallery/gallery-5.jpg'%}" class="glightbox" data-gallery="images-gallery">
+                  <img src="{% static 'assets/img/gallery/gallery-5.jpg'%}" alt="" class="img-fluid">
+                </a>
+              </div>
+            </div><!-- End Gallery Item -->
+  
+            <div class="col-lg-3 col-md-4">
+              <div class="gallery-item">
+                <a href="{% static 'assets/img/gallery/gallery-6.jpg'%}" class="glightbox" data-gallery="images-gallery">
+                  <img src="{% static 'assets/img/gallery/gallery-6.jpg'%}" alt="" class="img-fluid">
+                </a>
+              </div>
+            </div><!-- End Gallery Item -->
+  
+            <div class="col-lg-3 col-md-4">
+              <div class="gallery-item">
+                <a href="{% static 'assets/img/gallery/gallery-7.jpg'%}" class="glightbox" data-gallery="images-gallery">
+                  <img src="{% static 'assets/img/gallery/gallery-7.jpg'%}" alt="" class="img-fluid">
+                </a>
+              </div>
+            </div><!-- End Gallery Item -->
+  
+            <div class="col-lg-3 col-md-4">
+              <div class="gallery-item">
+                <a href="{% static 'assets/img/gallery/gallery-8.jpg'%}" class="glightbox" data-gallery="images-gallery">
+                  <img src="{% static 'assets/img/gallery/gallery-8.jpg'%}" alt="" class="img-fluid">
+                </a>
+              </div>
+            </div>
+          <!-- End Gallery Item -->
+  
+          </div>
+  
+        </div>
+  
+    </section>
+    <!-- /Gallery Section -->
+
+     <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials section dark-background">
+
+      <img src="assets/img/testimonials-bg.jpg" class="testimonials-bg" alt="">
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="swiper init-swiper">
+          <script type="application/json" class="swiper-config">
+            {
+              "loop": true,
+              "speed": 600,
+              "autoplay": {
+                "delay": 5000
+              },
+              "slidesPerView": "auto",
+              "pagination": {
+                "el": ".swiper-pagination",
+                "type": "bullets",
+                "clickable": true
+              }
+            }
+          </script>
+          <div class="swiper-wrapper">
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <img src="assets/img/testimonials/testimonials-1.jpg" class="testimonial-img" alt="">
+                <h3>Enock Bosire</h3>
+                <h4>Travel Blogger</h4>
+                <div class="stars">
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                </div>
+                <p>
+                  <i class="bi bi-quote quote-icon-left"></i>
+                  <span>DineReserve has made booking a table incredibly convenient. The interface is user-friendly, 
+                    and the confirmation is quick. I love the reservation reminders, which ensure I never miss a 
+                    reservation. Highly recommend for hassle-free dining experiences!
+                  </span>
+                  <i class="bi bi-quote quote-icon-right"></i>
+                </p>
+              </div>
+            </div>
+          <!-- End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <img src="assets/img/testimonials/testimonials-2.jpg" class="testimonial-img" alt="">
+                <h3>Brendah Khalenya</h3>
+                <h4>Event Planner</h4>
+                <div class="stars">
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                </div>
+                <p>
+                  <i class="bi bi-quote quote-icon-left"></i>
+                  <span>DineReserve offers exceptional service every time. The real-time availability and instant confirmations give 
+                    me peace of mind. Whether it's a last-minute booking or planning ahead, I can always count on DineReserve to 
+                    deliver. Truly a valuable tool for dining out!
+                  </span>
+                  <i class="bi bi-quote quote-icon-right"></i>
+                </p>
+              </div>
+            </div>
+          <!-- End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <img src="assets/img/testimonials/testimonials-3.jpg" class="testimonial-img" alt="">
+                <h3>Carino karen </h3>
+                <h4>Lifestyle Blogger</h4>
+                <div class="stars">
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                </div>
+                <p>
+                  <i class="bi bi-quote quote-icon-left"></i>
+                  <span>DineReserve has been a game-changer for me. The reservation process is quick and straightforward, 
+                    and I love being able to read reviews before booking. The special offers and reservation reminders 
+                    make dining out so much more enjoyable. Highly recommend!
+                  </span>
+                  <i class="bi bi-quote quote-icon-right"></i>
+                </p>
+              </div>
+            </div>
+          <!-- End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <img src="assets/img/testimonials/testimonials-4.jpg" class="testimonial-img" alt="">
+                <h3>Ian Dancan</h3>
+                <h4>Business Executive</h4>
+                <div class="stars">
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                </div>
+                <p>
+                  <i class="bi bi-quote quote-icon-left"></i>
+                  <span>As someone who dines out frequently, DineReserve is my go-to for reservations. The app is intuitive, and I 
+                    appreciate the loyalty program which rewards me for dining out. DineReserve has certainly enhanced my dining 
+                    experiences with its efficient service.
+                  </span>
+                  <i class="bi bi-quote quote-icon-right"></i>
+                </p>
+              </div>
+            </div><!-- End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <img src="assets/img/testimonials/testimonials-5.jpg" class="testimonial-img" alt="">
+                <h3>Elikanah Bosire</h3>
+                <h4>Food Critic</h4>
+                <div class="stars">
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                </div>
+                <p>
+                  <i class="bi bi-quote quote-icon-left"></i>
+                  <span>Planning nights out has become so much easier with DineReserve. The seamless process, along with the ability 
+                    to read restaurant reviews, makes choosing a place effortless. I've discovered several great new spots through 
+                    this platform. Five stars all the way!
+                  </span>
+                  <i class="bi bi-quote quote-icon-right"></i>
+                </p>
+              </div>
+            </div>
+          <!-- End testimonial item -->
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+
+      </div>
+
+    </section>
+    <!-- /Testimonials Section -->
+
+{% endblock %}

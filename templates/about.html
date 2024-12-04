@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}About{% endblock %}
+{% block content %}
+<!-- Profile_editing Section -->
+<section id="About" class="About section">
+
+  <!-- Section Title -->
+  <div class="container section-title" data-aos="fade-up">
+    <h2>About</h2>
+    <div><span>More </span> <span class="description-title">About us</span></div>
+  </div>
+  
+</section>
+<!-- End Section Title -->
+<!-- About Section -->
+<section id="about" class="about section light-background">
+
+    <div class="container">
+
+      <div class="row gy-4">
+        <div class="col-lg-6 position-relative align-self-start" data-aos="fade-up" data-aos-delay="100">
+          <img src="{% static 'assets/img/about.jpg'%}" class="img-fluid" alt="">
+          <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8" class="glightbox pulsating-play-btn"></a>
+        </div>
+        <div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="200">
+          <h3>Discover the Essence of DineReserve</h3>
+          <p class="fst-italic">
+            Experience a culinary journey like no other at DineReserve. Our mission is to provide an exceptional dining experience with a focus on quality, 
+            flavor, and personalized service.
+          </p>
+          <ul>
+            <li><i class="bi bi-check2-all"></i> <span>Seamless Reservations: Effortlessly book your table online with instant confirmations.</span></li>
+            <li><i class="bi bi-check2-all"></i> <span>Personalized Service: Enjoy custom seating options and accommodate special requests.</span></li>
+            <li><i class="bi bi-check2-all"></i> <span>Diverse Menu: Savor a blend of local and international cuisines crafted to delight every palate.</span></li>
+            <li><i class="bi bi-check2-all"></i> <span>Unparalleled Atmosphere: Dine in a setting designed to enhance your dining pleasure.</span></li>
+          </ul>
+          <p>
+            Join us for an unforgettable dining experience that caters to your unique preferences and tastes.
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+</section>
+<!-- /About Section -->
+ <!-- Why Us Section -->
+ <section id="why-us" class="why-us section">
+
+  <!-- Section Title -->
+  <div class="container section-title" data-aos="fade-up">
+    <h2>Why Us</h2>
+    <div><span>Why choose</span> <span class="description-title">Our Restaurant</span></div>
+  </div><!-- End Section Title -->
+
+  <div class="container">
+
+    <div class="row gy-4">
+
+      <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+        <div class="card-item">
+          <span>01</span>
+          <h4><a href="" class="stretched-link">Exceptional Dining Experience</a></h4>
+          <p>DineReserve provides a memorable dining experience with personalized seating options and special request accommodations. Enjoy quality service and a tailored dining experience.</p>
+        </div>
+      </div><!-- Card Item -->
+
+      <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+        <div class="card-item">
+          <span>02</span>
+          <h4><a href="" class="stretched-link">Convenient Online Reservations</a></h4>
+          <p>Book your table effortlessly with DineReserve's online reservation system. Choose your ideal seating and get instant confirmations for a smooth dining experience.</p>
+        </div>
+      </div><!-- Card Item -->
+
+      <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
+        <div class="card-item">
+          <span>03</span>
+          <h4><a href="" class="stretched-link">Personalized Service</a></h4>
+          <p>DineReserve caters to your specific needs with personalized service. Our diverse menu blends local and international cuisines to satisfy every palate.</p>
+        </div>
+      </div><!-- Card Item -->
+
+    </div>
+
+  </div>
+
+</section>
+<!-- /Why Us Section -->
+
+{% endblock %}

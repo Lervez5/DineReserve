@@ -1,0 +1,72 @@
+<header id="header" class="header fixed-top">
+
+  <div class="topbar d-flex align-items-center">
+    <div class="container d-flex justify-content-end justify-content-md-between">
+      <div class="contact-info d-flex align-items-center">
+        <i class="bi bi-phone d-flex align-items-center d-none d-lg-block">Currently logged in as <span>{{ user.username }}</span></i>
+        {% if user.is_authenticated %}
+          <i class="bi bi-envelope d-flex align-items-center ms-4"><span>{{ user.email }}</span></i>
+        {% endif %}
+      </div>
+      <ul>
+        {% if user.is_authenticated %}
+          <li><a href="{% url 'accounts_app:logout'%}" class="{% if request.path == '/logout/' %} active {% endif %}">Logout</a></li>
+          <li><a href="{% url 'accounts_app:user_profile'%}" class="{% if request.path == '/user/' %} active {% endif %}">Dashboard</a></li>
+        {% else %}
+          <li><a href="{% url 'accounts_app:login'%}" class="{% if request.path == '/login/' %} active {% endif %}">Login</a></li>
+          <li><a href="{% url 'accounts_app:register'%}" class="{% if request.path == '/register/' %} active {% endif %}">Register</a></li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+  <!-- End Top Bar -->
+
+  <div class="branding d-flex align-items-center">
+
+    <div class="container position-relative d-flex align-items-center justify-content-between">
+      <a href="{% url 'del_app:home' %}" class="logo d-flex align-items-center">
+        <h1 class="sitename">Dinereserve</h1>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="{% url 'del_app:home' %}" class="{% if request.path == '/' %} active {% endif %}">Home</a></li>
+          <li><a href="{% url 'del_app:about'%}" class="{% if request.path == '/about/' %} active {% endif %}">About</a></li>
+          <li><a href="{% url 'del_app:menu'%}" class="{% if request.path == '/menu/' %} active {% endif %}">Menu</a></li>
+          <li><a href="{% url 'del_app:events'%}" class="{% if request.path == '/events/' %} active {% endif %}">Events</a></li>
+          <li><a href="{% url 'del_app:gallery'%}" class="{% if request.path == '/gallery/' %} active {% endif %}">Gallery</a></li>
+
+          <li class="dropdown">
+            <a href="#"><span>Contact</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+            <ul>
+              {% if user.is_authenticated %}
+                {% if user.is_superuser %}
+                  <li><a href="{% url 'del_app:show_contacts' %}">Show contacts</a></li>
+                {% else %}
+                  <li><a href="{% url 'del_app:contact' %}">Contact Us</a></li>
+                {% endif %}
+              {% endif %}
+            </ul>
+          </li>
+
+          <li class="dropdown">
+            <a href="#"><span>Bookings</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+            <ul>
+              {% if user.is_authenticated %}
+                {% if user.is_superuser %}
+                  <li><a href="{% url 'del_app:show_bookings' %}">My Bookings</a></li>
+                {% else %}
+                  <li><a href="{% url 'del_app:book_table' %}">Book a Table</a></li>
+                {% endif %}
+              {% endif %}
+            </ul>
+          </li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+
+    </div>
+
+  </div>
+
+</header>
