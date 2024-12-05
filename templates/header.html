@@ -54,8 +54,9 @@
               {% if user.is_authenticated %}
                 {% if user.is_superuser %}
                   <li><a href="{% url 'del_app:show_bookings' %}">All Bookings</a></li>
-                  {% else %}
+                {% else %}
                   <li><a href="{% url 'del_app:book_table' %}">Book a Table</a></li>
+                  <li><a href="{% url 'del_app:show_bookings' %}">My Bookings</a></li>
                 {% endif %}
               {% endif %}
             </ul>

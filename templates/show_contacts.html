@@ -28,7 +28,7 @@
             <td>{{ contact.subject }}</td>
             <td>{{ contact.message }}</td>
             <td>
-                <a href="{% url 'del_app:update_contact' contact.id %}" class="btn btn-primary">Edit</a>
+                <a href="{% url 'del_app:update_contact' contact.id %}" class="btn btn-dark">Edit</a>
                 <a href="{% url 'del_app:delete_contact' contact.id %}" class="btn btn-danger">Delete</a>
             </td>
         </tr>

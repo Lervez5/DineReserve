@@ -16,6 +16,7 @@ def about(request):
     return render(request, 'about.html')
 
 def menu(request):
+    """ This is for the menu view """
     item_to_edit = None
 
     if request.method == 'POST':
@@ -62,6 +63,7 @@ def menu(request):
         'drinks': drinks,
         'item_to_edit': item_to_edit,
     }
+    # Renders the menu page
     return render(request, 'menu.html', context)
 
 
@@ -189,14 +191,9 @@ def delete_booking(request, id):
 # Adding the mpesa functionality
 # Function to Display the payments form
 def pay(request):
-    """ Handles payment and redirects the user to the login page after payment """
-    if request.method == 'POST':
-        
-        # If it's a GET request, just render the payment form
-        return render(request, 'pay.html')
-    
-        # Assuming payment is successful, redirects the user to the home page
-    return redirect('del_app:home')
+   """ Renders the form to pay """
+   return render(request, 'pay.html')
+
 
 # Generate the ID of the transaction
 def token(request):
