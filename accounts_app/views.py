@@ -46,19 +46,24 @@ def login_view(request):
         username = request.POST['username']
         password = request.POST['password']
 
-        user = authenticate(request, username=username, password=password)
+        # Check whether the user exists in the database
+        if User.objects.filter(username=username).exists():
+            user = authenticate(request, username=username, password=password)
 
-        # Check whether the user exists
-        if user is not None:
-            login(request, user)
-            messages.success(request, "You're in! Enjoy your visit.")
-            return redirect("del_app:home")
+            if user is not None:
+                login(request, user)
+                messages.success(request, "You're in! Enjoy your visit.")
+                return redirect("del_app:home")
+            else:
+                messages.error(request, "Login failed. Incorrect password.")
         else:
-            messages.error(request, "Login failed. Check your username and password.")
+            messages.error(request, "No account found with the provided username. Please register.")
+            return redirect('accounts_app:register')
 
     return render(request, 'accounts/login.html')
 
 def logout_view(request):
+    """ This is for the Logout view """
     logout(request)
     return redirect('del_app:home')
 
@@ -90,7 +95,7 @@ def user_profile(request):
                 'profile_picture': static('images/default_profile_picture.png')
             }
             return render(request, 'accounts/user_profile.html', context)
-
+    # Checks whether its a post method 
     if request.method == 'POST':
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
@@ -108,14 +113,15 @@ def user_profile(request):
         user_profile, created = UserProfile.objects.get_or_create(user=user)
         user_profile.phone = phone
 
-        # Handle empty or invalid date_of_birth field
+        # Handles empty or invalid date_of_birth field
         if date_of_birth:
             try:
                 user_profile.date_of_birth = date_of_birth
             except ValueError:
                 messages.error(request, 'Invalid date format. Please use YYYY-MM-DD format.')
         else:
-            user_profile.date_of_birth = None  # Set to None if empty
+            # sets the field None when empty
+            user_profile.date_of_birth = None
 
         user_profile.location = location
 
