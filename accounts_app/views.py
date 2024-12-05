@@ -63,11 +63,13 @@ def login_view(request):
     return render(request, 'accounts/login.html')
 
 def logout_view(request):
-    """ This is for the Logout view """
+    """ This is for the logout view"""
     logout(request)
+    messages.success(request, "You have logged out successfully.")
     return redirect('del_app:home')
 
 def user_profile(request):
+    """ If request is a Get"""
     if request.method == 'GET':
         try:
             user_profile = request.user.userprofile
