@@ -12,33 +12,43 @@
       <div><span>Book a</span> <span class="description-title">Table with us</span></div>
     </div><!-- End Section Title -->
 
-    <div class="container">      
-          <form method="POST">
+    <div class="container">
+        <form method="POST">
             {% csrf_token %}
             <div class="row gy-4">
               <div class="col-lg-4 col-md-6">
                 <label for="name">Your Name</label>
-                <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" value="{{ name }}" required="">
+                <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" 
+                       {% if user.is_superuser %}
+                       value=""
+                       {% else %}
+                       value="{{ user.username }}" readonly
+                       {% endif %}>
               </div>
               <div class="col-lg-4 col-md-6">
                 <label for="email">Email</label>
-                <input type="email" class="form-control" name="email" id="email" placeholder="example@gmail.com" required="">
+                <input type="email" class="form-control" name="email" id="email" placeholder="example@gmail.com" 
+                       {% if user.is_superuser %}
+                       value=""
+                       {% else %}
+                       value="{{ user.email }}" readonly
+                       {% endif %}>
               </div>
               <div class="col-lg-4 col-md-6">
                 <label for="phone">Phone</label>
-                <input type="text" class="form-control" name="phone" id="phone" placeholder="Your Phone" required="">
+                <input type="text" class="form-control" name="phone" id="phone" placeholder="Your Phone">                       
               </div>
               <div class="col-lg-4 col-md-6">
                 <label for="date">Date</label>
-                <input type="date" name="date" class="form-control" id="date" placeholder="Date" required="">
+                <input type="date" name="date" class="form-control" id="date" placeholder="Date" required>
               </div>
               <div class="col-lg-4 col-md-6">
                 <label for="time">Time</label>
-                <input type="time" class="form-control" name="time" id="time" placeholder="Time" required="">
+                <input type="time" class="form-control" name="time" id="time" placeholder="Time" required>
               </div>
               <div class="col-lg-4 col-md-6">
                 <label for="people">Number of People</label>
-                <input type="number" class="form-control" name="people" id="people" placeholder="# of people" required="">
+                <input type="number" class="form-control" name="people" id="people" placeholder="# of people" required>
               </div>
             </div>
 
@@ -59,7 +69,7 @@
 
     </div>
 
-  </section>
-  <!-- /Book A Table Section -->
+</section>
+<!-- /Book A Table Section -->
 
 {% endblock %}
