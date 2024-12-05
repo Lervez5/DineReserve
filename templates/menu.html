@@ -12,6 +12,47 @@
     <div><span>Check Our Tasty</span> <span class="description-title">Menu</span></div>
   </div><!-- End Section Title -->
 
+  <!-- Admins Upload Section -->
+  {% if user.is_superuser %}
+  <div class="container" data-aos="fade-up" data-aos-delay="100">
+    <h3>{{ user.username }}: Add/Edit a Menu Item</h3>
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <input type="hidden" name="item_id" value="{% if item_to_edit %}{{ item_to_edit.id }}{% endif %}">
+      <div class="mb-3">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" name="name" id="name" value="{% if item_to_edit %}{{ item_to_edit.name }}{% endif %}" required>
+      </div>
+      <div class="mb-3">
+        <label for="description">Description</label>
+        <textarea class="form-control" name="description" id="description" rows="3" required>{% if item_to_edit %}{{ item_to_edit.description }}{% endif %}</textarea>
+      </div>
+      <div class="mb-3">
+        <label for="price">Price</label>
+        <input type="number" step="0.01" class="form-control" name="price" id="price" value="{% if item_to_edit %}{{ item_to_edit.price }}{% endif %}" required>
+      </div>
+      <div class="mb-3">
+        <label for="category">Category</label>
+        <select class="form-control" name="category" id="category" required>
+          <option value="APPETIZER" {% if item_to_edit and item_to_edit.category == "APPETIZER" %}selected{% endif %}>Appetizer</option>
+          <option value="MAIN_COURSE" {% if item_to_edit and item_to_edit.category == "MAIN_COURSE" %}selected{% endif %}>Main Course</option>
+          <option value="DESSERT" {% if item_to_edit and item_to_edit.category == "DESSERT" %}selected{% endif %}>Dessert</option>
+          <option value="DRINK" {% if item_to_edit and item_to_edit.category == "DRINK" %}selected{% endif %}>Drink</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="image">Image</label>
+        <input type="file" class="form-control" name="image" id="image">
+      </div>
+      <button type="submit" name="add_item" class="btn btn-dark">Add Item</button>
+      {% if item_to_edit %}
+      <button type="submit" name="edit_item" class="btn btn-secondary btn-lg">Edit Item</button>
+      {% endif %}
+    </form>
+  </div>
+  {% endif %}
+  <!-- End Admin Upload Section -->
+
   <div class="container isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
 
     <div class="row" data-aos="fade-up" data-aos-delay="100">
@@ -32,9 +73,17 @@
       <!-- Appetizers -->
       {% for item in appetizers %}
         <div class="col-lg-6 menu-item isotope-item filter-starters">
-          <img src="{% static item.image %}" class="menu-img" alt="{{ item.name }}">
+          <img src="{{ item.image.url }}" class="menu-img" alt="{{ item.name }}">
           <div class="menu-content">
             <a href="#">{{ item.name }}</a><span>Ksh {{ item.price }}</span>
+            {% if user.is_superuser %}
+              <a href="?edit={{ item.id }}" class="btn btn-sm btn-primary">Edit</a>
+              <form method="POST" style="display: inline;">
+                {% csrf_token %}
+                <input type="hidden" name="item_id" value="{{ item.id }}">
+                <button type="submit" name="delete_item" class="btn btn-sm btn-danger">Delete</button>
+              </form>
+            {% endif %}
           </div>
           <div class="menu-ingredients">
             {{ item.description }}
@@ -45,9 +94,17 @@
       <!-- Main Courses -->
       {% for item in main_courses %}
         <div class="col-lg-6 menu-item isotope-item filter-specialty">
-          <img src="{% static item.image %}" class="menu-img" alt="{{ item.name }}">
+          <img src="{{ item.image.url }}" class="menu-img" alt="{{ item.name }}">
           <div class="menu-content">
             <a href="#">{{ item.name }}</a><span>Ksh {{ item.price }}</span>
+            {% if user.is_superuser %}
+              <a href="?edit={{ item.id }}" class="btn btn-sm btn-primary">Edit</a>
+              <form method="POST" style="display: inline;">
+                {% csrf_token %}
+                <input type="hidden" name="item_id" value="{{ item.id }}">
+                <button type="submit" name="delete_item" class="btn btn-sm btn-danger">Delete</button>
+              </form>
+            {% endif %}
           </div>
           <div class="menu-ingredients">
             {{ item.description }}
@@ -58,9 +115,17 @@
       <!-- Desserts -->
       {% for item in desserts %}
         <div class="col-lg-6 menu-item isotope-item filter-salads">
-          <img src="{% static item.image %}" class="menu-img" alt="{{ item.name }}">
+          <img src="{{ item.image.url }}" class="menu-img" alt="{{ item.name }}">
           <div class="menu-content">
             <a href="#">{{ item.name }}</a><span>Ksh {{ item.price }}</span>
+            {% if user.is_superuser %}
+              <a href="?edit={{ item.id }}" class="btn btn-sm btn-primary">Edit</a>
+              <form method="POST" style="display: inline;">
+                {% csrf_token %}
+                <input type="hidden" name="item_id" value="{{ item.id }}">
+                <button type="submit" name="delete_item" class="btn btn-sm btn-danger">Delete</button>
+              </form>
+            {% endif %}
           </div>
           <div class="menu-ingredients">
             {{ item.description }}
@@ -71,9 +136,17 @@
       <!-- Drinks -->
       {% for item in drinks %}
         <div class="col-lg-6 menu-item isotope-item filter-wines">
-          <img src="{% static item.image %}" class="menu-img" alt="{{ item.name }}">
+          <img src="{{ item.image.url }}" class="menu-img" alt="{{ item.name }}">
           <div class="menu-content">
             <a href="#">{{ item.name }}</a><span>Ksh {{ item.price }}</span>
+            {% if user.is_superuser %}
+              <a href="?edit={{ item.id }}" class="btn btn-sm btn-primary">Edit</a>
+              <form method="POST" style="display: inline;">
+                {% csrf_token %}
+                <input type="hidden" name="item_id" value="{{ item.id }}">
+                <button type="submit" name="delete_item" class="btn btn-sm btn-danger">Delete</button>
+              </form>
+            {% endif %}
           </div>
           <div class="menu-ingredients">
             {{ item.description }}

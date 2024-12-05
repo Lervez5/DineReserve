@@ -1,45 +1,48 @@
 {% extends 'base.html' %}
-{% block title %}Show_bookings{% endblock %}
+{% block title %}Show Bookings{% endblock %}
 
 {% block content %}
-
     <!-- Section Title -->
     <div class="container section-title" data-aos="fade-up">
-        <h2>Your booking</h2>
+        <h2>Your Booking</h2>
         <div><span>Here are Your</span> <span class="description-title">Bookings</span></div>
     </div>
-      <!-- End Section Title -->
-<table class="table table-light table-responsive">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Date</th>
-            <th>Time</th>
-            <th>People</th>
-            <th>Message</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for booking in bookings %}
-        <tr>
+    <!-- End Section Title -->
 
-            <td>{{ booking.name }}</td>
-            <td>{{ booking.email }}</td>
-            <td>{{ booking.phone }}</td>
-            <td>{{ booking.date }}</td>
-            <td>{{ booking.time }}</td>
-            <td>{{ booking.people}}</td>
-            <td>{{ booking.message }}</td>
-            <td>
-                <a href="{% url 'del_app:edit_booking' booking.id %}" class="btn btn-primary">Edit</a>
-                <a href="{% url 'del_app:pay' %}" class="btn btn-success">Pay</a>
-                <a href="{% url 'del_app:delete_booking' booking.id %}" class="btn btn-danger">Delete</a>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+    <table class="table table-light table-responsive">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>People</th>
+                <th>Message</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for booking in bookings %}
+            <tr>
+                <td>{{ booking.name }}</td>
+                <td>{{ booking.email }}</td>
+                <td>{{ booking.phone }}</td>
+                <td>{{ booking.date }}</td>
+                <td>{{ booking.time }}</td>
+                <td>{{ booking.people }}</td>
+                <td>{{ booking.message }}</td>
+                <td>
+                    <a href="{% url 'del_app:edit_booking' booking.id %}" class="btn btn-dark">Edit</a>
+                    {% if user.is_superuser %}
+                        <a href="{% url 'del_app:delete_booking' booking.id %}" class="btn btn-danger">Delete</a>
+                        {% else %}
+                        <a href="{% url 'del_app:delete_booking' booking.id %}" class="btn btn-danger">Delete</a>
+                        <a href="{% url 'del_app:pay' %}" class="btn btn-success">Pay</a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}

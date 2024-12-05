@@ -14,7 +14,42 @@ def home(request):
 def about(request):
     """ This is for the about page """
     return render(request, 'about.html')
+
 def menu(request):
+    item_to_edit = None
+
+    if request.method == 'POST':
+        if 'add_item' in request.POST:
+            name = request.POST.get('name')
+            description = request.POST.get('description')
+            price = request.POST.get('price')
+            category = request.POST.get('category')
+            image = request.FILES.get('image')
+
+            MenuItem.objects.create(name=name, description=description, price=price, category=category, image=image)
+            return redirect('del_app:menu')
+
+        if 'edit_item' in request.POST:
+            item_id = request.POST.get('item_id')
+            item = get_object_or_404(MenuItem, id=item_id)
+            item.name = request.POST.get('name')
+            item.description = request.POST.get('description')
+            item.price = request.POST.get('price')
+            item.category = request.POST.get('category')
+            if request.FILES.get('image'):
+                item.image = request.FILES.get('image')
+            item.save()
+            return redirect('del_app:menu')
+
+        if 'delete_item' in request.POST:
+            item_id = request.POST.get('item_id')
+            item = get_object_or_404(MenuItem, id=item_id)
+            item.delete()
+            return redirect('del_app:menu')
+
+    if 'edit' in request.GET:
+        item_to_edit = get_object_or_404(MenuItem, id=request.GET.get('edit'))
+
     appetizers = MenuItem.objects.filter(category='APPETIZER')
     main_courses = MenuItem.objects.filter(category='MAIN_COURSE')
     desserts = MenuItem.objects.filter(category='DESSERT')
@@ -25,6 +60,7 @@ def menu(request):
         'main_courses': main_courses,
         'desserts': desserts,
         'drinks': drinks,
+        'item_to_edit': item_to_edit,
     }
     return render(request, 'menu.html', context)
 
@@ -107,7 +143,7 @@ def booking_table(request):
         # Save all the inputs into the Database
         bookings_instance.save()
         # Redirect to home page after saving
-        return redirect('del_app:home')
+        return redirect('del_app:show_bookings')
     else:
         # Render the booking table page if GET request
         return render(request, 'book_table.html')
@@ -153,9 +189,14 @@ def delete_booking(request, id):
 # Adding the mpesa functionality
 # Function to Display the payments form
 def pay(request):
-   """ Renders the Payment form """
-   return render(request, 'pay.html')
-
+    """ Handles payment and redirects the user to the login page after payment """
+    if request.method == 'POST':
+        
+        # If it's a GET request, just render the payment form
+        return render(request, 'pay.html')
+    
+        # Assuming payment is successful, redirects the user to the home page
+    return redirect('del_app:home')
 
 # Generate the ID of the transaction
 def token(request):
