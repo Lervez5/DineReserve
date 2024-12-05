@@ -1,5 +1,4 @@
 from django.db import models
-
 # Create your models here.
 class booking(models.Model):
     """ bookings table """
@@ -23,5 +22,23 @@ class contacts(models.Model):
     message = models.TextField()
 
     # Returns the values to human readable format    
+    def __str__(self):
+        return self.name
+
+
+class MenuItem(models.Model):
+    CATEGORY_CHOICES = [
+        ('APPETIZER', 'Appetizer'),
+        ('MAIN_COURSE', 'Main Course'),
+        ('DESSERT', 'Dessert'),
+        ('DRINK', 'Drink'),
+    ]
+
+    name = models.CharField(max_length=255)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    description = models.TextField()
+    category = models.CharField(max_length=50, choices=CATEGORY_CHOICES)
+    image = models.ImageField(upload_to='menu_items/', blank=True, null=True)
+
     def __str__(self):
         return self.name

@@ -5,7 +5,7 @@ from requests.auth import HTTPBasicAuth
 from del_app.credentials import LipanaMpesaPpassword, MpesaAccessToken
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import contacts, booking
+from .models import contacts, booking,MenuItem
 
 def home(request):
     """ This is for the home_page """
@@ -14,10 +14,20 @@ def home(request):
 def about(request):
     """ This is for the about page """
     return render(request, 'about.html')
-
 def menu(request):
-    """ This is for the menu page """
-    return render(request, 'menu.html')
+    appetizers = MenuItem.objects.filter(category='APPETIZER')
+    main_courses = MenuItem.objects.filter(category='MAIN_COURSE')
+    desserts = MenuItem.objects.filter(category='DESSERT')
+    drinks = MenuItem.objects.filter(category='DRINK')
+
+    context = {
+        'appetizers': appetizers,
+        'main_courses': main_courses,
+        'desserts': desserts,
+        'drinks': drinks,
+    }
+    return render(request, 'menu.html', context)
+
 
 def events(request):
     """ This is for the events page """
