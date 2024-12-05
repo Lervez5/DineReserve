@@ -41,7 +41,7 @@
             <ul>
               {% if user.is_authenticated %}
                 {% if user.is_superuser %}
-                  <li><a href="{% url 'del_app:show_contacts' %}">Show contacts</a></li>
+                  <li><a href="{% url 'del_app:show_contacts' %}">All messages</a></li>
                 {% else %}
                   <li><a href="{% url 'del_app:contact' %}">Contact Us</a></li>
                 {% endif %}
