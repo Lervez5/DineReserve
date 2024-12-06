@@ -6,6 +6,7 @@ from .models import UserProfile
 from django.templatetags.static import static
 
 # Create your views here.
+
 def register(request):
     """ This helps in displaying the registration page """
     if request.method == 'POST':
@@ -17,26 +18,28 @@ def register(request):
         confirm_password = request.POST['confirm_password']
 
         # Check if passwords match
-        if password == confirm_password:
-            # Check if username or email already exists
-            if User.objects.filter(username=username).exists():
-                messages.error(request, 'Username is already taken')
-            elif User.objects.filter(email=email).exists():
-                messages.error(request, 'Email already in use, use another email instead')
-            else:
-                # Create the user if validation passes
-                user = User.objects.create_user(
-                    username=username,
-                    email=email,
-                    password=password,
-                    first_name=first_name,
-                    last_name=last_name
-                )
-                user.save()
-                messages.success(request, "Account created successfully")
-                return redirect('accounts_app:login')
-        else:
+        if password != confirm_password:
             messages.error(request, 'Passwords do not match')
+        # Check if the password is at least 8 characters long
+        elif len(password) < 8:
+            messages.error(request, 'Password must be at least 8 characters long')
+        # Check if username or email already exists
+        elif User.objects.filter(username=username).exists():
+            messages.error(request, 'Username is already taken')
+        elif User.objects.filter(email=email).exists():
+            messages.error(request, 'Email already in use, use another email instead')
+        else:
+            # Create the user if validation passes
+            user = User.objects.create_user(
+                username=username,
+                email=email,
+                password=password,
+                first_name=first_name,
+                last_name=last_name
+            )
+            user.save()
+            messages.success(request, "Account created successfully")
+            return redirect('accounts_app:login')
 
     return render(request, 'accounts/register.html')
 
@@ -51,9 +54,12 @@ def login_view(request):
             user = authenticate(request, username=username, password=password)
 
             if user is not None:
-                login(request, user)
-                messages.success(request, "You're in! Enjoy your visit.")
-                return redirect("del_app:home")
+                if not user.is_superuser and len(password) < 8:
+                    messages.error(request, 'Password must be at least 8 characters long for regular users.')
+                else:
+                    login(request, user)
+                    messages.success(request, "You're in! Enjoy your visit.")
+                    return redirect("del_app:home")
             else:
                 messages.error(request, "Login failed. Incorrect password.")
         else:
@@ -69,7 +75,6 @@ def logout_view(request):
     return redirect('del_app:home')
 
 def user_profile(request):
-    """ If request is a Get"""
     if request.method == 'GET':
         try:
             user_profile = request.user.userprofile
@@ -97,7 +102,7 @@ def user_profile(request):
                 'profile_picture': static('images/default_profile_picture.png')
             }
             return render(request, 'accounts/user_profile.html', context)
-    # Checks whether its a post method 
+
     if request.method == 'POST':
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
@@ -115,14 +120,12 @@ def user_profile(request):
         user_profile, created = UserProfile.objects.get_or_create(user=user)
         user_profile.phone = phone
 
-        # Handles empty or invalid date_of_birth field
         if date_of_birth:
             try:
                 user_profile.date_of_birth = date_of_birth
             except ValueError:
                 messages.error(request, 'Invalid date format. Please use YYYY-MM-DD format.')
         else:
-            # sets the field None when empty
             user_profile.date_of_birth = None
 
         user_profile.location = location
