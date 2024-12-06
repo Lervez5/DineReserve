@@ -55,7 +55,7 @@ def login_view(request):
 
             if user is not None:
                 if not user.is_superuser and len(password) < 8:
-                    messages.error(request, 'Password must be at least 8 characters long for regular users.')
+                    messages.error(request, 'Password must be at least 8 characters long.')
                 else:
                     login(request, user)
                     messages.success(request, "You're in! Enjoy your visit.")
@@ -63,7 +63,7 @@ def login_view(request):
             else:
                 messages.error(request, "Login failed. Incorrect password.")
         else:
-            messages.error(request, "No account found with the provided username. Please register.")
+            messages.error(request, "No account found with the provided username. Please register here.")
             return redirect('accounts_app:register')
 
     return render(request, 'accounts/login.html')
