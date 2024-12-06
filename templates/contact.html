@@ -57,20 +57,21 @@
             <div class="row">
               <div class="col-md-6 form-group">
                 <label for="name">Your Name</label>
-                <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" value="{{ user_profile }}" required="">
+                <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" value="{{ user.first_name }} {{ user.last_name }}" 
+                {% if not user.is_superuser %}readonly{% endif %} required>
               </div>
               <div class="col-md-6 form-group mt-3 mt-md-0">
                 <label for="email">Email</label>
-                <input type="email" class="form-control" name="email" id="email" placeholder="example@gmail.com" required="">
+                <input type="email" class="form-control" name="email" id="email" placeholder="example@gmail.com" value="{{ user.email }}" required>
               </div>
             </div>
             <div class="form-group mt-3">
               <label for="subject">Subject</label>
-              <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required="">
+              <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
             </div>
             <div class="form-group mt-3">
               <label for="message">Message</label>
-              <textarea class="form-control" name="message" id="message" placeholder="Message" required=""></textarea>
+              <textarea class="form-control" name="message" id="message" placeholder="Message" required></textarea>
             </div>
             <div class="my-3">
               <div class="text-center mt-3">Click on the button to send your details</div>

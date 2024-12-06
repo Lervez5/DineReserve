@@ -22,7 +22,7 @@
                        {% if user.is_superuser %}
                        value=""
                        {% else %}
-                       value="{{ user.username }}" readonly
+                       value="{{ user.first_name }} {{ user.last_name }}" readonly
                        {% endif %}>
               </div>
               <div class="col-lg-4 col-md-6">
