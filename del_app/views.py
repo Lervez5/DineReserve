@@ -6,7 +6,7 @@ from del_app.credentials import LipanaMpesaPpassword, MpesaAccessToken
 from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import contacts, booking, MenuItem, Gallery
+from .models import contacts, booking, MenuItem, Gallery ,Testimonial
 
 def home(request):
     """ This is for the home_page """
@@ -71,7 +71,7 @@ def events(request):
     return render(request, 'events.html')
 
 def gallery(request):
-    """ This is for the gallery view """
+    """ This is for the gallery and testimonials view """
     if request.method == 'POST':
         if 'add_image' in request.POST:
             image = request.FILES.get('image')
@@ -90,10 +90,32 @@ def gallery(request):
             messages.success(request, "Image deleted successfully!")
             return redirect('del_app:gallery')
 
+        if 'add_testimonial' in request.POST:
+            name = request.POST.get('name')
+            role = request.POST.get('role')
+            stars = request.POST.get('stars')
+            quote = request.POST.get('quote')
+            image = request.FILES.get('image')
+            if name and quote:  # Ensure required fields are provided
+                Testimonial.objects.create(name=name, role=role, stars=stars, quote=quote, image=image)
+                messages.success(request, "Testimonial added successfully!")
+            else:
+                messages.error(request, "Please provide the required fields.")
+            return redirect('del_app:gallery')
+
+        if 'delete_testimonial' in request.POST:
+            testimonial_id = request.POST.get('testimonial_id')
+            testimonial = get_object_or_404(Testimonial, id=testimonial_id)
+            testimonial.delete()
+            messages.success(request, "Testimonial deleted successfully!")
+            return redirect('del_app:gallery')
+
     images = Gallery.objects.exclude(image='')
+    testimonials = Testimonial.objects.all()
 
     context = {
         'images': images,
+        'testimonials': testimonials,
     }
     return render(request, 'gallery.html', context)
 

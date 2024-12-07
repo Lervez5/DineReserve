@@ -49,3 +49,13 @@ class Gallery(models.Model):
 
     def __str__(self):
         return self.caption if self.caption else "Gallery Image"
+
+class Testimonial(models.Model):
+    name = models.CharField(max_length=255)
+    role = models.CharField(max_length=255)
+    stars = models.IntegerField(default=5)
+    quote = models.TextField()
+    image = models.ImageField(upload_to='testimonials/', blank=True, null=True)
+
+    def __str__(self):
+        return self.name

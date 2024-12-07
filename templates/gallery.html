@@ -33,7 +33,7 @@
                     <label for="image">Image</label>
                     <input type="file" name="image" id="image" class="form-control">
                 </div>
-                <button type="submit" name="add_image" class="btn btn-primary mt-3">Add Image</button>
+                <button type="submit" name="add_image" class="btn btn-dark mt-3">Add Image</button>
             </form>
         </div>
         <!-- End Add Image Form -->
@@ -50,7 +50,7 @@
                         </a>
                         {% endif %}
                         {% if user.is_authenticated and user.is_superuser %}
-                        <div class="text-center mt-2">
+                        <div class="text-start mt-2">
                             <form action="" method="post" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this image?');">
                                 {% csrf_token %}
                                 <input type="hidden" name="image_id" value="{{ image.id }}">
@@ -66,162 +66,103 @@
         <!-- End Gallery Images -->
 
     </section>
-    <!-- /Gallery Section -->
-        <!-- Section Title -->
-        <div class="container section-title" data-aos="fade-up">
-          <h2>Testimonials</h2>
-          <div><span>Here are some testimonies </span> <span class="description-title">from our estimed customers</span></div>
-        </div><!-- End Section Title -->
+    <!-- /End of Gallery Section -->
 
-     <!-- Testimonials Section -->
+    <!-- Testimonials section start -->
+    <!-- Section Title -->
+    <div class="container section-title" data-aos="fade-up">
+        <h2>Testimonials</h2>
+        <div><span>Here are some testimonies </span> <span class="description-title">from our esteemed customers</span></div>
+    </div><!-- End Section Title -->
+
+    <!-- Testimonials Section -->
     <section id="testimonials" class="testimonials section dark-background">
+        <img src="assets/img/testimonials-bg.jpg" class="testimonials-bg" alt="">
 
-      <img src="assets/img/testimonials-bg.jpg" class="testimonials-bg" alt="">
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="swiper init-swiper">
-          <script type="application/json" class="swiper-config">
-            {
-              "loop": true,
-              "speed": 600,
-              "autoplay": {
-                "delay": 5000
-              },
-              "slidesPerView": "auto",
-              "pagination": {
-                "el": ".swiper-pagination",
-                "type": "bullets",
-                "clickable": true
-              }
-            }
-          </script>
-          <div class="swiper-wrapper">
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <img src="assets/img/testimonials/testimonials-1.jpg" class="testimonial-img" alt="">
-                <h3>Enock Bosire</h3>
-                <h4>Travel Blogger</h4>
-                <div class="stars">
-                  <i class="bi bi-star-fill"></i>
-                  <i class="bi bi-star-fill"></i>
-                  <i class="bi bi-star-fill"></i>
-                  <i class="bi bi-star-fill"></i>
-                  <i class="bi bi-star-fill"></i>
+        <div class="container" data-aos="fade-up" data-aos-delay="100">
+            <div class="swiper init-swiper">
+                <script type="application/json" class="swiper-config">
+                {
+                    "loop": true,
+                    "speed": 600,
+                    "autoplay": {
+                        "delay": 5000
+                    },
+                    "slidesPerView": "auto",
+                    "pagination": {
+                        "el": ".swiper-pagination",
+                        "type": "bullets",
+                        "clickable": true
+                    }
+                }
+                </script>
+                <div class="swiper-wrapper">
+                    {% for testimonial in testimonials %}
+                    <div class="swiper-slide">
+                        <div class="testimonial-item">
+                            {% if testimonial.image %}
+                            <img src="{{ testimonial.image.url }}" class="testimonial-img" alt="{{ testimonial.name }}">
+                            {% endif %}
+                            <h3>{{ testimonial.name }}</h3>
+                            <h4>{{ testimonial.role }}</h4>
+                            <div class="stars">
+                                {% for i in "12345"|slice:":testimonial.stars" %}
+                                <i class="bi bi-star-fill"></i>
+                                {% endfor %}
+                            </div>
+                            <p>
+                                <i class="bi bi-quote quote-icon-left"></i>
+                                <span>{{ testimonial.quote }}</span>
+                                <i class="bi bi-quote quote-icon-right"></i>
+                            </p>
+                            {% if user.is_authenticated and user.is_superuser %}
+                            <div class="text-center mt-2">
+                                <form action="" method="post" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this testimonial?');">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="testimonial_id" value="{{ testimonial.id }}">
+                                    <button type="submit" name="delete_testimonial" class="btn btn-danger">Delete</button>
+                                </form>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
                 </div>
-                <p>
-                  <i class="bi bi-quote quote-icon-left"></i>
-                  <span>DineReserve has made booking a table incredibly convenient. The interface is user-friendly, 
-                    and the confirmation is quick. I love the reservation reminders, which ensure I never miss a 
-                    reservation. Highly recommend for hassle-free dining experiences!
-                  </span>
-                  <i class="bi bi-quote quote-icon-right"></i>
-                </p>
-              </div>
+                <div class="swiper-pagination"></div>
             </div>
-          <!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <img src="assets/img/testimonials/testimonials-2.jpg" class="testimonial-img" alt="">
-                <h3>Brendah Khalenya</h3>
-                <h4>Event Planner</h4>
-                <div class="stars">
-                  <i class="bi bi-star-fill"></i>
-                  <i class="bi bi-star-fill"></i>
-                  <i class="bi bi-star-fill"></i>
-                  <i class="bi bi-star-fill"></i>
-                  <i class="bi bi-star-fill"></i>
-                </div>
-                <p>
-                  <i class="bi bi-quote quote-icon-left"></i>
-                  <span>DineReserve offers exceptional service every time. The real-time availability and instant confirmations give 
-                    me peace of mind. Whether it's a last-minute booking or planning ahead, I can always count on DineReserve to 
-                    deliver. Truly a valuable tool for dining out!
-                  </span>
-                  <i class="bi bi-quote quote-icon-right"></i>
-                </p>
-              </div>
-            </div>
-          <!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <img src="assets/img/testimonials/testimonials-3.jpg" class="testimonial-img" alt="">
-                <h3>Carino karen </h3>
-                <h4>Lifestyle Blogger</h4>
-                <div class="stars">
-                  <i class="bi bi-star-fill"></i>
-                  <i class="bi bi-star-fill"></i>
-                  <i class="bi bi-star-fill"></i>
-                  <i class="bi bi-star-fill"></i>
-                  <i class="bi bi-star-fill"></i>
-                </div>
-                <p>
-                  <i class="bi bi-quote quote-icon-left"></i>
-                  <span>DineReserve has been a game-changer for me. The reservation process is quick and straightforward, 
-                    and I love being able to read reviews before booking. The special offers and reservation reminders 
-                    make dining out so much more enjoyable. Highly recommend!
-                  </span>
-                  <i class="bi bi-quote quote-icon-right"></i>
-                </p>
-              </div>
-            </div>
-          <!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <img src="assets/img/testimonials/testimonials-4.jpg" class="testimonial-img" alt="">
-                <h3>Ian Dancan</h3>
-                <h4>Business Executive</h4>
-                <div class="stars">
-                  <i class="bi bi-star-fill"></i>
-                  <i class="bi bi-star-fill"></i>
-                  <i class="bi bi-star-fill"></i>
-                  <i class="bi bi-star-fill"></i>
-                  <i class="bi bi-star-fill"></i>
-                </div>
-                <p>
-                  <i class="bi bi-quote quote-icon-left"></i>
-                  <span>As someone who dines out frequently, DineReserve is my go-to for reservations. The app is intuitive, and I 
-                    appreciate the loyalty program which rewards me for dining out. DineReserve has certainly enhanced my dining 
-                    experiences with its efficient service.
-                  </span>
-                  <i class="bi bi-quote quote-icon-right"></i>
-                </p>
-              </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <img src="assets/img/testimonials/testimonials-5.jpg" class="testimonial-img" alt="">
-                <h3>Elikanah Bosire</h3>
-                <h4>Food Critic</h4>
-                <div class="stars">
-                  <i class="bi bi-star-fill"></i>
-                  <i class="bi bi-star-fill"></i>
-                  <i class="bi bi-star-fill"></i>
-                  <i class="bi bi-star-fill"></i>
-                  <i class="bi bi-star-fill"></i>
-                </div>
-                <p>
-                  <i class="bi bi-quote quote-icon-left"></i>
-                  <span>Planning nights out has become so much easier with DineReserve. The seamless process, along with the ability 
-                    to read restaurant reviews, makes choosing a place effortless. I've discovered several great new spots through 
-                    this platform. Five stars all the way!
-                  </span>
-                  <i class="bi bi-quote quote-icon-right"></i>
-                </p>
-              </div>
-            </div>
-          <!-- End testimonial item -->
-          </div>
-          <div class="swiper-pagination"></div>
         </div>
 
-      </div>
-
+        {% if user.is_authenticated and user.is_superuser %}
+        <!-- Add Testimonial Form -->
+        <div class="container" data-aos="fade-up" data-aos-delay="100">
+            <div class="row">
+                <div class="col-md-6 form-group">
+                    <label for="name">Your Name</label>
+                    <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required="">
+                </div>
+                <div class="col-md-6 form-group mt-3 mt-md-0">
+                    <label for="role">Role</label>
+                    <input type="text" name="role" class="form-control" id="role" placeholder="Your Role" required="">
+                </div>
+            </div>
+            <div class="form-group mt-3">
+                <label for="stars">Stars</label>
+                <input type="number" name="stars" class="form-control" id="stars" min="1" max="5" value="5" required="">
+            </div>
+            <div class="form-group mt-3">
+                <label for="quote">Quote</label>
+                <textarea name="quote" class="form-control" id="quote" placeholder="Your Testimonial" required="" style="border: 1px solid #ddd; padding: 10px; border-radius: 5px;"></textarea>
+            </div>
+            <div class="form-group mt-3">
+                <label for="image">Image</label>
+                <input type="file" name="image" class="form-control" id="image" required="">
+            </div>
+            <div class="text-start mt-3">
+                <button type="submit" name="add_testimonial" class="btn btn-dark">Add Testimonial</button>
+            </div>
+        </div>
+        <!-- End Add Testimonial Form -->
+        {% endif %}
     </section>
     <!-- /Testimonials Section -->
 
