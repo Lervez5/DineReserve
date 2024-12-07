@@ -39,7 +39,6 @@
                     <div class="text-center">
                         <img src="{{ profile_picture }}" class="avatar img-circle img-thumbnail" alt="avatar">
                         <h6>Upload your photo...</h6>
-                        <input type="file" name="profile_picture" class="text-center center-block file-upload">
                     </div>
                 </div>
             </div>
@@ -53,7 +52,7 @@
         </div>
         <!-- Profile Settings-->
         <div class="col-lg-8 pb-5">
-            <form method="post" enctype="multipart/form-data" class="row">
+            <form method="post" enctype="multipart/form-data" class="row" id="profileForm">
                 {% csrf_token %}
                 <div class="col-md-6">
                     <div class="form-group">
@@ -91,11 +90,16 @@
                         <input class="form-control" type="text" id="account-location" name="location" placeholder="Location" value="{{ location }}">
                     </div>
                 </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="profile-picture">Profile Picture</label>
+                        <input type="file" name="profile_picture" id="profile-picture" class="form-control">
+                    </div>
+                </div>
                 <div class="col-12">
                     <hr class="mt-2 mb-3">
                     <div class="d-flex flex-wrap justify-content-between align-items-center">                        
                         <button class="btn btn-dark btn" type="submit">Save</button>
-                        <button class="btn btn" type="reset">Reset</button>
                     </div>
                 </div>
             </form>
