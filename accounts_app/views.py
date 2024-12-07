@@ -62,6 +62,7 @@ def login_view(request):
                     return redirect("del_app:home")
             else:
                 messages.error(request, "Login failed. Incorrect password.")
+                return render(request, 'accounts/login.html', {'username': username})
         else:
             messages.error(request, "No account found with the provided username. Please register here.")
             return redirect('accounts_app:register')
