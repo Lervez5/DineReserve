@@ -75,21 +75,21 @@ def logout_view(request):
     return redirect('del_app:home')
 
 def user_profile(request):
+    # Checks on method in use 
     if request.method == 'GET':
         try:
             user_profile = request.user.userprofile
-            profile_picture_url = user_profile.profile_picture.url if user_profile.profile_picture and user_profile.profile_picture.name else static('images/default_profile_picture.png')
+            profile_picture_url = user_profile.profile_picture.url if user_profile.profile_picture else static('images/default_profile_picture.png')
 
             context = {
                 'first_name': request.user.first_name,
                 'last_name': request.user.last_name,
                 'email': request.user.email,
-                'date_of_birth': user_profile.date_of_birth,
                 'phone': user_profile.phone,
+                'date_of_birth': user_profile.date_of_birth,
                 'location': user_profile.location,
                 'profile_picture': profile_picture_url,
             }
-            return render(request, 'accounts/user_profile.html', context)
         except UserProfile.DoesNotExist:
             context = {
                 'first_name': request.user.first_name,
@@ -101,7 +101,7 @@ def user_profile(request):
                 'location': '',
                 'profile_picture': static('images/default_profile_picture.png')
             }
-            return render(request, 'accounts/user_profile.html', context)
+        return render(request, 'accounts/user_profile.html', context)
 
     if request.method == 'POST':
         first_name = request.POST.get('first_name')
@@ -116,24 +116,16 @@ def user_profile(request):
         user.first_name = first_name
         user.last_name = last_name
         user.email = email
+        user.save()
 
         user_profile, created = UserProfile.objects.get_or_create(user=user)
         user_profile.phone = phone
-
-        if date_of_birth:
-            try:
-                user_profile.date_of_birth = date_of_birth
-            except ValueError:
-                messages.error(request, 'Invalid date format. Please use YYYY-MM-DD format.')
-        else:
-            user_profile.date_of_birth = None
-
+        user_profile.date_of_birth = date_of_birth if date_of_birth else None
         user_profile.location = location
 
         if profile_picture:
             user_profile.profile_picture = profile_picture
 
-        user.save()
         user_profile.save()
 
         messages.success(request, 'Profile updated successfully' if not created else 'Profile created successfully')

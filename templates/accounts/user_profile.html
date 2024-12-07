@@ -82,7 +82,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="account-dob">Date of Birth</label>
-                        <input class="form-control" type="date" id="account-dob" name="date_of_birth" value="{{ date_of_birth }}">
+                        <input class="form-control" type="date" id="account-dob" name="date_of_birth" value="{{ date_of_birth|date:'Y-m-d' }}">
                     </div>
                 </div>
                 <div class="col-md-6">
