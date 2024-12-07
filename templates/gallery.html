@@ -2,93 +2,71 @@
 {% load static %}
 {% block title %}Gallery{% endblock %}
 {% block content %}
-
     <!-- Gallery Section -->
     <section id="gallery" class="gallery section">
 
         <!-- Section Title -->
         <div class="container section-title" data-aos="fade-up">
-          <h2>Gallery</h2>
-          <div><span>Some photos from</span> <span class="description-title">Our Restaurant</span></div>
+            <h2>Gallery</h2>
+            <div><span>Some photos from</span> <span class="description-title">Our Restaurant</span></div>
         </div><!-- End Section Title -->
-  
-        <div class="container-fluid" data-aos="fade-up" data-aos-delay="100">
-  
-          <div class="row g-0">
-  
-            <div class="col-lg-3 col-md-4">
-              <div class="gallery-item">
-                <a href="{% static 'assets/img/gallery/gallery-1.jpg'%}" class="glightbox" data-gallery="images-gallery">
-                  <img src="{% static 'assets/img/gallery/gallery-1.jpg'%}" alt="" class="img-fluid">
-                </a>
-              </div>
-            </div><!-- End Gallery Item -->
-  
-            <div class="col-lg-3 col-md-4">
-              <div class="gallery-item">
-                <a href="{% static 'assets/img/gallery/gallery-2.jpg'%}" class="glightbox" data-gallery="images-gallery">
-                  <img src="{% static 'assets/img/gallery/gallery-2.jpg'%}" alt="" class="img-fluid">
-                </a>
-              </div>
-            </div><!-- End Gallery Item -->
-  
-            <div class="col-lg-3 col-md-4">
-              <div class="gallery-item">
-                <a href="{% static 'assets/img/gallery/gallery-3.jpg'%}" class="glightbox" data-gallery="images-gallery">
-                  <img src="{% static 'assets/img/gallery/gallery-3.jpg'%}" alt="" class="img-fluid">
-                </a>
-              </div>
-            </div><!-- End Gallery Item -->
-  
-            <div class="col-lg-3 col-md-4">
-              <div class="gallery-item">
-                <a href="{% static 'assets/img/gallery/gallery-4.jpg'%}" class="glightbox" data-gallery="images-gallery">
-                  <img src="{% static 'assets/img/gallery/gallery-4.jpg'%}" alt="" class="img-fluid">
-                </a>
-              </div>
-            </div><!-- End Gallery Item -->
-  
-            <div class="col-lg-3 col-md-4">
-              <div class="gallery-item">
-                <a href="{% static 'assets/img/gallery/gallery-5.jpg'%}" class="glightbox" data-gallery="images-gallery">
-                  <img src="{% static 'assets/img/gallery/gallery-5.jpg'%}" alt="" class="img-fluid">
-                </a>
-              </div>
-            </div><!-- End Gallery Item -->
-  
-            <div class="col-lg-3 col-md-4">
-              <div class="gallery-item">
-                <a href="{% static 'assets/img/gallery/gallery-6.jpg'%}" class="glightbox" data-gallery="images-gallery">
-                  <img src="{% static 'assets/img/gallery/gallery-6.jpg'%}" alt="" class="img-fluid">
-                </a>
-              </div>
-            </div><!-- End Gallery Item -->
-  
-            <div class="col-lg-3 col-md-4">
-              <div class="gallery-item">
-                <a href="{% static 'assets/img/gallery/gallery-7.jpg'%}" class="glightbox" data-gallery="images-gallery">
-                  <img src="{% static 'assets/img/gallery/gallery-7.jpg'%}" alt="" class="img-fluid">
-                </a>
-              </div>
-            </div><!-- End Gallery Item -->
-  
-            <div class="col-lg-3 col-md-4">
-              <div class="gallery-item">
-                <a href="{% static 'assets/img/gallery/gallery-8.jpg'%}" class="glightbox" data-gallery="images-gallery">
-                  <img src="{% static 'assets/img/gallery/gallery-8.jpg'%}" alt="" class="img-fluid">
-                </a>
-              </div>
-            </div>
-          <!-- End Gallery Item -->
-  
-          </div>
-  
+
+        <!-- Display Messages -->
+        {% if messages %}
+        <div class="container mt-3">
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+            {% endfor %}
         </div>
-  
+        {% endif %}
+
+        {% if user.is_authenticated and user.is_superuser %}
+        <!-- Add Image Form -->
+        <div class="container" data-aos="fade-up" data-aos-delay="100">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="caption">Caption</label>
+                    <input type="text" name="caption" id="caption" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="image">Image</label>
+                    <input type="file" name="image" id="image" class="form-control">
+                </div>
+                <button type="submit" name="add_image" class="btn btn-primary mt-3">Add Image</button>
+            </form>
+        </div>
+        <!-- End Add Image Form -->
+        {% endif %}
+
+        <div class="container-fluid mt-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="row g-0">
+                {% for image in images %}
+                <div class="col-lg-3 col-md-4">
+                    <div class="gallery-item">
+                        {% if image.image %}
+                        <a href="{{ image.image.url }}" class="glightbox" data-gallery="images-gallery">
+                            <img src="{{ image.image.url }}" alt="{{ image.caption }}" class="img-fluid">
+                        </a>
+                        {% endif %}
+                        {% if user.is_authenticated and user.is_superuser %}
+                        <div class="text-center mt-2">
+                            <form action="" method="post" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this image?');">
+                                {% csrf_token %}
+                                <input type="hidden" name="image_id" value="{{ image.id }}">
+                                <button type="submit" name="delete_image" class="btn btn-danger">Delete</button>
+                            </form>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <!-- End Gallery Images -->
+
     </section>
     <!-- /Gallery Section -->
-
-    
         <!-- Section Title -->
         <div class="container section-title" data-aos="fade-up">
           <h2>Testimonials</h2>

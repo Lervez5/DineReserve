@@ -3,9 +3,10 @@ import requests
 from django.http import HttpResponse, JsonResponse
 from requests.auth import HTTPBasicAuth
 from del_app.credentials import LipanaMpesaPpassword, MpesaAccessToken
+from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import contacts, booking,MenuItem
+from .models import contacts, booking, MenuItem, Gallery
 
 def home(request):
     """ This is for the home_page """
@@ -63,76 +64,82 @@ def menu(request):
         'drinks': drinks,
         'item_to_edit': item_to_edit,
     }
-    # Renders the menu page
     return render(request, 'menu.html', context)
-
 
 def events(request):
     """ This is for the events page """
     return render(request, 'events.html')
 
 def gallery(request):
-    """ This is for the Gallery page """
-    return render(request, 'gallery.html')
+    """ This is for the gallery view """
+    if request.method == 'POST':
+        if 'add_image' in request.POST:
+            image = request.FILES.get('image')
+            caption = request.POST.get('caption')
+            if image:  # Ensure an image file is provided
+                Gallery.objects.create(image=image, caption=caption)
+                messages.success(request, "Image added successfully!")
+            else:
+                messages.error(request, "Please upload an image.")
+            return redirect('del_app:gallery')
+
+        if 'delete_image' in request.POST:
+            image_id = request.POST.get('image_id')
+            image = get_object_or_404(Gallery, id=image_id)
+            image.delete()
+            messages.success(request, "Image deleted successfully!")
+            return redirect('del_app:gallery')
+
+    images = Gallery.objects.exclude(image='')
+
+    context = {
+        'images': images,
+    }
+    return render(request, 'gallery.html', context)
 
 @login_required(login_url='accounts_app:login')
 def contact(request):
     """ This is for the contact section page """
     if request.method == 'POST':
-        # Creates a variable to pick the input fields
         contact_instance = contacts(
             name=request.POST['name'],
             email=request.POST['email'],
             subject=request.POST['subject'],
             message=request.POST['message'],
         )
-        # Save's the variables
         contact_instance.save()
-        # Redirect to home page after saving
         return redirect('del_app:home')
     else:
-        # Render's the contact page if its a GET request
         return render(request, 'contact.html')
 
 def contact_info(request):
     """ Shows the contacts information """
-    # Variable to store all contacts
     contact_instance = contacts.objects.all()
     context = {'contacts': contact_instance}
-    # Render the show contacts page with the contacts context
     return render(request, 'show_contacts.html', context)
 
 def update_contact(request, contact_id):
     """ Function to update an existing contact """
-    # Get the contact object or return 404 if not found
     contact_instance = get_object_or_404(contacts, id=contact_id)
     if request.method == 'POST':
-        # Update the contact with the new data from the form
         contact_instance.name = request.POST.get('name')
         contact_instance.email = request.POST.get('email')
         contact_instance.subject = request.POST.get('subject')
         contact_instance.message = request.POST.get('message')
-        # Save the updated contact
         contact_instance.save()
-        # Redirect to the show contacts page after updating
         return redirect('del_app:show_contacts')
-    # Render the update contact page if GET request
     return render(request, "edit_contact.html", {'contact': contact_instance})
 
 def delete_contact(request, id):
     """ Deleting The contacts """
-    # Fetch a particular contact by its original id
     contact_instance = get_object_or_404(contacts, id=id)
-    # Actual action of deleting
     contact_instance.delete()
-    # Redirect to the show contacts page after deleting
     return redirect('del_app:show_contacts')
 
 @login_required(login_url='accounts_app:login')
 def booking_table(request):
     """ This is for the Table bookings page """
     if request.method == 'POST':
-        # Create a variable to pick the input fields and save the form data
         bookings_instance = booking(
             name=request.POST['name'],
             email=request.POST['email'],
@@ -142,28 +149,21 @@ def booking_table(request):
             people=request.POST['people'],
             message=request.POST['message'],
         )
-        # Save all the inputs into the Database
         bookings_instance.save()
-        # Redirect to home page after saving
         return redirect('del_app:show_bookings')
     else:
-        # Render the booking table page if GET request
         return render(request, 'book_table.html')
 
 def show_bookings(request):
     """ Shows the bookings information """
-    # Variable to store all bookings
     all_bookings = booking.objects.all()
     context = {'bookings': all_bookings}
-    # Render the show bookings page with the bookings context
     return render(request, 'show_bookings.html', context)
 
 def update_booking(request, booking_id):
     """ Function to update an existing booking """
-    # Get the booking object or return 404 if not found
     bookings_instance = get_object_or_404(booking, id=booking_id)
     if request.method == 'POST':
-        # Update the booking with the new data from the form
         bookings_instance.name = request.POST.get('name')
         bookings_instance.email = request.POST.get('email')
         bookings_instance.phone = request.POST.get('phone')
@@ -171,20 +171,14 @@ def update_booking(request, booking_id):
         bookings_instance.time = request.POST.get('time')
         bookings_instance.people = request.POST.get('people')
         bookings_instance.message = request.POST.get('message')
-        # Save the updated booking
         bookings_instance.save()
-        # Redirect to the show bookings page after updating
         return redirect('del_app:show_bookings')
-    # Render the update booking page if GET request
     return render(request, "edit_booking.html", {'booking': bookings_instance})
 
 def delete_booking(request, id):
     """ Deleting The bookings """
-    # Fetch a particular booking by its original id
     bookings_instance = get_object_or_404(booking, id=id)
-    # Actual action of deleting
     bookings_instance.delete()
-    # redirects to the show bookings page after any deletion
     return redirect('del_app:show_bookings')
 
 
