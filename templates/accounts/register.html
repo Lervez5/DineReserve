@@ -6,10 +6,9 @@
 {% if messages %}
 <ul>
   {% for message in messages %}
-  <li style="color: {% if message.tags == 'error' %}red{% else %}#ffb03b{% endif %};
-  background-color: {% if message.tags == 'error' %} #433f39 {% else %} #433f39 {% endif %};">
+  <h6 class="{% if message.tags == 'error' %} red {% else %} alert alert-warning mt-3 {% endif %}; background-color: {% if message.tags == 'error' %} white {% else %} white {% endif %};">
     {{ message }}
-  </li>
+  </h6>
   {% endfor %}
 </ul>
 {% endif %}
@@ -40,16 +39,6 @@
                   </div>
                   <form method="POST">
                     {% csrf_token %}
-                {% if messages %}
-                  <ul>
-                      {% for message in messages %}
-                      <li style="text-decoration: none; color: {% if message.tags == 'error' %} red {% else %} #ffb03b {% endif %};
-                       background-color: {% if message.tags == 'error' %} #433f39 {% else %} #433f39 {% endif %};">
-                      {{ message }}
-                      </li>
-                    {% endfor %}
-                  </ul>
-                {% endif %}
                   <div class="row gy-3 overflow-hidden">
                     <div class="col-12">
                       <p>Sign up to enjoy and order your meal</p>

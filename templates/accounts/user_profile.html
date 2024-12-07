@@ -26,7 +26,7 @@
 <div class="container mt-3">
     <!-- Username Heading -->
     <div class="row">
-        <div class="col-lg-12 text-center">
+        <div class="col-lg-12">
             <h2>{{ user.username }}</h2>
         </div>
     </div>
@@ -100,10 +100,36 @@
                     <hr class="mt-2 mb-3">
                     <div class="d-flex flex-wrap justify-content-between align-items-center">                        
                         <button class="btn btn-dark btn" type="submit">Save</button>
+                        <button class="btn btn" type="button" id="resetButton">Reset</button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+<script>
+document.getElementById("resetButton").addEventListener("click", function() {
+    const resetOptions = prompt("Enter 1 to reset the entire form, or 2 to reset the personal details section only:");
+
+    if (resetOptions === "1") {
+        if (confirm("Are you sure you want to reset all the contents of the page?")) {
+            document.getElementById("profileForm").reset();
+        }
+    } else if (resetOptions === "2") {
+        if (confirm("Are you sure you want to reset the personal details section only?")) {
+            resetPersonalDetails();
+        }
+    }
+});
+
+function resetPersonalDetails() {
+    document.getElementById("account-fn").value = "";
+    document.getElementById("account-ln").value = "";
+    document.getElementById("account-email").value = "";
+    document.getElementById("account-phone").value = "";
+    document.getElementById("account-dob").value = "";
+    document.getElementById("account-location").value = "";
+}
+</script>
 {% endblock %}
